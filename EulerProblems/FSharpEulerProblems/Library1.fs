@@ -1,4 +1,5 @@
 ﻿namespace FSharpEulerProblems
+open System
 
 //Multiples of 3 and 5
 //Problem 1
@@ -17,14 +18,84 @@ module Problem1 =
 //By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
 module Problem2 =
   let FibonacciGetSumBelowMax max =
-    let rec fibonacciSumBelowMaxWithTotal prev current total =
-      let next = prev + current
-      if next > max 
-        then total
-      else fibonacciSumBelowMaxWithTotal current next (if next % 2 = 0 then total + next else total)
-    fibonacciSumBelowMaxWithTotal 0 1 0
+    let rec fibonacciSumBelowMaxInner prev current total =
+      match (prev + current), max with
+        | next, max when next > max -> total
+        | next, _ when next % 2 = 0 -> fibonacciSumBelowMaxInner current next (total + next)
+        | next, _ -> fibonacciSumBelowMaxInner current next total
+    fibonacciSumBelowMaxInner 0 1 0
   
-//Not my solution but I really liked this one...need to understand how infinite sequences work, looks pretty handy for some recursive sorts of things.
+//Not my solution but I really liked this one...need to understand how infinite sequences work, probably not used a lot but interesting
   let InfiniteSequenceMethod max =
     let fibSeq = (1,1) |> Seq.unfold (fun (a, b) -> Some(a+b, (b, a+b)) )
     fibSeq |> Seq.takeWhile (fun x -> x <= max) |> Seq.sumBy (fun x -> if x%2 = 0 then x else 0)
+
+//Largest prime factor
+//Problem 3
+//The prime factors of 13195 are 5, 7, 13 and 29.
+//What is the largest prime factor of the number 600851475143 ?
+module Problem3 =
+  //I know there's faster ways but this reads nice and clean...
+  let GetLargetPrimeFactor number = 
+    let rec GetLargetPrimeFactorRecursive num max current =
+      match num with
+        | x when x < current -> max
+        | x when x % current = 0 -> GetLargetPrimeFactorRecursive (num/current) current (current + 1)
+        | x -> GetLargetPrimeFactorRecursive num max (current + 1)
+    GetLargetPrimeFactorRecursive number 1 2
+
+//Largest palindrome product
+//Problem 4
+//A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
+//Find the largest palindrome made from the product of two 3-digit numbers.
+module Problem4 =
+  let GetLargestPalindromeProduct number = 
+    let isPalindrome s =
+      new string(Array.rev(s.ToString().ToCharArray())) = s.ToString()
+    let rec rc left right current mark =
+      let next = right * left
+      match left, right, next with
+        | a, b, c when a < 1 || a < mark -> current
+        | a, b, c when isPalindrome(c) && c > current -> rc (a - 1) number c b
+        | a, b, c when b > 0 -> rc left (right - 1) current mark
+        | a, b, c -> rc (left - 1) number current mark
+    rc number number 0 0
+
+////Smallest multiple
+////Problem 5
+////2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
+////What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
+module Problem5 =
+  let getSmallestNumberDivisibleByNumbers maxNumber = 
+    let getPrimeFactors(n : int) = 
+      let rec getPrimFactorsInner number divisor factors =
+        match number, divisor with
+          | n, d when n < d -> factors
+          | n, d when n % d = 0 -> getPrimFactorsInner (number/divisor) divisor (divisor :: factors)
+          | n, d -> getPrimFactorsInner number (divisor + 1) factors
+      getPrimFactorsInner n 2 []
+
+    let factors = 
+      [2..maxNumber] 
+        |> List.map(fun x -> getPrimeFactors x )
+        |> Seq.map(fun x -> x |> Seq.countBy id ) 
+        |> Seq.concat
+        |> Seq.groupBy fst
+        |> Seq.map(fun(k, v) -> v |> Seq.max)
+
+    //This is the same
+//    let blackMagic = 
+//      List.map(fun x -> getPrimeFactors x ) 
+//      >> Seq.map(fun x -> x |> Seq.countBy id ) 
+//      >> Seq.concat 
+//      >> Seq.groupBy fst 
+//      >> Seq.map(fun(k, v) -> v |> Seq.max)
+//    let factors2 = [2..maxNumber] |> blackMagic
+//    let factors2 = blackMagic [2..maxNumber]
+
+    //This is the same too...but awful
+    //So this is pretty much why you have the dot syntax in C# for linq I guess
+    //let test = Seq.map(fun(k, v) -> v |> Seq.max) (Seq.concat (Seq.groupBy fst (Seq.map(fun x -> x |> Seq.countBy id )  (List.map(fun x -> getPrimeFactors x ) [2..maxNumber]))))
+
+    let powerify(k: int, v: int) = int <| Math.Pow(float k, float v)
+    factors |> Seq.fold(fun state factor -> state * powerify factor) 1
