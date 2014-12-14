@@ -57,8 +57,8 @@ module Problem4 =
       match left, right, next with
         | a, b, c when a < 1 || a < mark -> current
         | a, b, c when isPalindrome(c) && c > current -> rc (a - 1) number c b
-        | a, b, c when b > 0 -> rc left (right - 1) current mark
-        | a, b, c -> rc (left - 1) number current mark
+        | a, b, c when b > 0 -> rc a (b - 1) current mark
+        | a, b, c -> rc (a - 1) number current mark
     rc number number 0 0
 
 ////Smallest multiple
@@ -71,8 +71,8 @@ module Problem5 =
       let rec getPrimFactorsInner number divisor factors =
         match number, divisor with
           | n, d when n < d -> factors
-          | n, d when n % d = 0 -> getPrimFactorsInner (number/divisor) divisor (divisor :: factors)
-          | n, d -> getPrimFactorsInner number (divisor + 1) factors
+          | n, d when n % d = 0 -> getPrimFactorsInner (n/d) d (d :: factors)
+          | n, d -> getPrimFactorsInner n (d + 1) factors
       getPrimFactorsInner n 2 []
 
     let factors = 
@@ -99,3 +99,31 @@ module Problem5 =
 
     let powerify(k: int, v: int) = int <| Math.Pow(float k, float v)
     factors |> Seq.fold(fun state factor -> state * powerify factor) 1
+
+//The sum of the squares of the first ten natural numbers is,
+//12 + 22 + ... + 102 = 385
+//The square of the sum of the first ten natural numbers is,
+//(1 + 2 + ... + 10)2 = 552 = 3025
+//Hence the difference between the sum of the squares of the first ten natural numbers and the square of the sum is 3025 − 385 = 2640.
+//Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.
+module Problem6 = 
+  let sumSquaresSquareSumsDifference num = 
+    let sumOfSquares = [1..num] |> Seq.map(fun x -> Math.Pow(float x, float 2) |> int) |> Seq.sum
+    let square x = Math.Pow(float x, float 2) 
+    let squareOfSums = ([1..num] |> Seq.sum) |> square |> int
+    Math.Abs(squareOfSums - sumOfSquares) |> int
+
+//10001st prime
+//Problem 7
+//By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.
+//What is the 10 001st prime number?
+module Problem7 = 
+  //Trying to do this without recursion...
+  let getSpecificPrime nthPrime =
+    let isPrime num = 
+      let max = Math.Sqrt(float num) |> int
+      not([2..max] |> Seq.exists(fun x -> num % x = 0))
+
+    let primes = Seq.initInfinite (fun i -> i + 2) |> Seq.filter isPrime
+
+    primes |> Seq.take nthPrime |> Seq.last

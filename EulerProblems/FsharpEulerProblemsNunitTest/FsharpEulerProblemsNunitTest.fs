@@ -39,3 +39,11 @@ let ``Problem 4 should return 9009 for 99``() =
 [<Test>]
 let ``Problem 5 should return 2520 for 10``() = 
   Assert.AreEqual(2520, Problem5.getSmallestNumberDivisibleByNumbers 10)
+  
+[<Test>]
+let ``Problem 6 should return 2640 for 10``() = 
+  Assert.AreEqual(2640, Problem6.sumSquaresSquareSumsDifference 10)
+
+[<Test>]
+let ``Problem 7 should return 104743 for 10001``() = 
+  Assert.AreEqual(104743, Problem7.getSpecificPrime 10001)
