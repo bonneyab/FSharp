@@ -124,6 +124,52 @@ module Problem7 =
       let max = Math.Sqrt(float num) |> int
       not([2..max] |> Seq.exists(fun x -> num % x = 0))
 
-    let primes = Seq.initInfinite (fun i -> i + 2) |> Seq.filter isPrime
-
+    //skipping to and doing it by 2's to save some iterations, adding 2 at the end.
+    let primes = 
+      Seq.unfold(fun x -> Some(x, x + 2)) 3 
+        |> Seq.filter isPrime 
+        |> Seq.append [2]
+    
+    //The same! (but starts at 1 and doesn't do 2; you get the idea...)
+    //let primes = Seq.initInfinite (fun i -> i + 2) |> Seq.filter isPrime
+    //printfn "%A" primes
     primes |> Seq.take nthPrime |> Seq.last
+
+
+//Find the greatest product of five consecutive digits in the 1000-digit number. 
+//73167176531330624919225119674426574742355349194934
+//96983520312774506326239578318016984801869478851843
+//85861560789112949495459501737958331952853208805511
+//12540698747158523863050715693290963295227443043557
+//66896648950445244523161731856403098711121722383113
+//62229893423380308135336276614282806444486645238749
+//30358907296290491560440772390713810515859307960866
+//70172427121883998797908792274921901699720888093776
+//65727333001053367881220235421809751254540594752243
+//52584907711670556013604839586446706324415722155397
+//53697817977846174064955149290862569321978468622482
+//83972241375657056057490261407972968652414535100474
+//82166370484403199890008895243450658541227588666881
+//16427171479924442928230863465674813919123162824586
+//17866458359124566529476545682848912883142607690042
+//24219022671055626321111109370544217506941658960408
+//07198403850962455444362981230987879927244284909188
+//84580156166097919133875499200524063689912560717606
+//05886116467109405077541002256983155200055935729725
+//71636269561882670428252483600823257530420752963450
+module Problem8 = 
+  let getMaxMultipleFromStringNumber(num : string) =
+    //char directly to int doesn't actually give you the digit value.
+    let numbers = num.ToCharArray() |> Array.map(fun x -> x |> string) |> Array.toList |> List.map(fun x -> x |> int)
+    let returnMax oldTotal seq =
+      let newTotal = seq |> Seq.take(5) |> Seq.fold (*) 1
+      let tail = seq |> List.tail
+      if newTotal > oldTotal then (newTotal, tail) else (oldTotal, tail)
+    
+    //Alright, initial numbers is really just used for the total number of iterations, we skip 4 so that there are always 5 to take
+    //This is really a fancy way of avoiding a normal recursive call by using the second part of the tuple to maintain the tail of the list
+    //I suppose I've generally tried to avoid normal recursion and loops but this is probably a step too far considering a recursive sort of
+    //call is pretty straightforward
+    //Sort of interesting though so leaving it
+    let max = numbers |> Seq.skip(5) |> Seq.fold(fun (total, seq) item -> returnMax total seq) (0, numbers)
+    fst max
