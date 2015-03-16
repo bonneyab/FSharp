@@ -173,3 +173,25 @@ module Problem8 =
     //Sort of interesting though so leaving it
     let max = numbers |> Seq.skip(5) |> Seq.fold(fun (total, seq) item -> returnMax total seq) (0, numbers)
     fst max
+
+
+//  A Pythagorean triplet is a set of three natural numbers, a < b < c, for which,
+//a^2 + b^2 = c^2
+//For example, 32 + 42 = 9 + 16 = 25 = 5^2.
+//There exists exactly one Pythagorean triplet for which a + b + c = 1000.
+//Find the product abc.
+module Problem9 =
+  let getProductOfPythagoreanTripletForNumber(num : int) =
+    let increment triplet =
+      match triplet with
+        | (a, b, c) when a + 1 < b - 1 -> (a + 1, b - 1, c)
+        | (a, b, c) when num - c + 1 >= c - 1 -> (num - (c * 2 - 3), (c - 2), (c - 1))
+        | (a, b, c) -> (0, num - c + 1, c - 1)
+
+    let rec innerTripletForNumber triplet =
+      //printfn "%A" triplet
+      match triplet with
+        | (a, b, c) when a >= b -> 0
+        | (a, b, c) when Math.Pow(float a, float 2) + Math.Pow(float b, float 2) = Math.Pow(float c, float 2) -> a * b * c
+        | (a, b, c) -> innerTripletForNumber (increment triplet)
+    innerTripletForNumber (0, 1, num - 1)
