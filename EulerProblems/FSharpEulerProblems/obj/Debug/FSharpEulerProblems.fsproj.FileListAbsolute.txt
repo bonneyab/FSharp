@@ -12,3 +12,10 @@ C:\Users\adambo\Documents\GitHub\Fsharp\EulerProblems\FSharpEulerProblems\bin\De
 C:\Users\adambo\Documents\GitHub\Fsharp\EulerProblems\FSharpEulerProblems\bin\Debug\FSharp.Core.xml
 C:\Users\adambo\Documents\GitHub\Fsharp\EulerProblems\FSharpEulerProblems\obj\Debug\FSharpEulerProblems.dll
 C:\Users\adambo\Documents\GitHub\Fsharp\EulerProblems\FSharpEulerProblems\obj\Debug\FSharpEulerProblems.pdb
+C:\Users\adambodevprd\Documents\GitHub\FSharp\EulerProblems\FSharpEulerProblems\bin\Debug\FSharpEulerProblems.XML
+C:\Users\adambodevprd\Documents\GitHub\FSharp\EulerProblems\FSharpEulerProblems\bin\Debug\FSharpEulerProblems.dll
+C:\Users\adambodevprd\Documents\GitHub\FSharp\EulerProblems\FSharpEulerProblems\bin\Debug\FSharpEulerProblems.pdb
+C:\Users\adambodevprd\Documents\GitHub\FSharp\EulerProblems\FSharpEulerProblems\bin\Debug\FSharp.Core.dll
+C:\Users\adambodevprd\Documents\GitHub\FSharp\EulerProblems\FSharpEulerProblems\bin\Debug\FSharp.Core.xml
+C:\Users\adambodevprd\Documents\GitHub\FSharp\EulerProblems\FSharpEulerProblems\obj\Debug\FSharpEulerProblems.dll
+C:\Users\adambodevprd\Documents\GitHub\FSharp\EulerProblems\FSharpEulerProblems\obj\Debug\FSharpEulerProblems.pdb

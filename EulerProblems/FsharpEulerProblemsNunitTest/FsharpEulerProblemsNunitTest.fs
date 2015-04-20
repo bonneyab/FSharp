@@ -57,3 +57,7 @@ let ``Problem 8 should return 40824 for Ginourmous number``() =
 let ``Problem 9 should return 60 for 12``() = 
 //  Assert.AreEqual(60, Problem9.getProductOfPythagoreanTripletForNumber 12)
   Assert.AreEqual(60, Problem9.getProductOfPythagoreanTripletForNumber 31875000)
+  
+[<Test>]
+let ``Problem 12 should return 28 for 5``() = 
+  Assert.AreEqual(28, Problem12.getFirstTriangleNumberWithNumberOfDivisors 5)
