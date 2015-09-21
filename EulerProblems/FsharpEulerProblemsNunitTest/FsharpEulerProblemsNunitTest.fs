@@ -65,4 +65,9 @@ let ``Problem 12 should return 28 for 5``() =
   
 [<Test>]
 let ``Problem 36 should return 872187 for 1000000``() = 
-  Assert.AreEqual(28, Problem36.GetDoubleBasePalindromesUnderNumberSum 1000000)
+  Assert.AreEqual(872187, Problem36.getDoubleBasePalindromesUnderNumberSum 1000000)
+  
+  //d1 × d10 × d100 × d1000 × d10000 × d100000 × d1000000
+[<Test>]
+let ``Problem 40 should return 872187 for List of digits``() = 
+  Assert.AreEqual(210, Problem40.getDigitsFromIrrationalNumber [| 1; 10; 100; 1000; 10000; 100000; 1000000 |])
