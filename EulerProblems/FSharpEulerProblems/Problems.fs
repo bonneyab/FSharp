@@ -225,3 +225,65 @@ module Problem12 =
                 else inner (num + 1)
 
         inner(1)
+
+
+// Longest Collatz sequence
+// Problem 14
+// The following iterative sequence is defined for the set of positive integers:
+// n → n/2 (n is even)
+// n → 3n + 1 (n is odd)
+// Using the rule above and starting with 13, we generate the following sequence:
+// 13 → 40 → 20 → 10 → 5 → 16 → 8 → 4 → 2 → 1
+// It can be seen that this sequence (starting at 13 and finishing at 1) contains 10 terms. Although it has not been proved yet (Collatz Problem), it is thought that all starting numbers finish at 1.
+// Which starting number, under one million, produces the longest chain?
+// NOTE: Once the chain starts the terms are allowed to go above one million.
+//object Problem14 {
+//  var _computedValues = new mutable.HashMap[BigInt, Int]
+//  def getLongestCollatzSequenceUnderNumber(number: Int) : Int = {
+//    ((1, 1) /: (number to 1 by -1)) ((i, m) => 
+//        getCollatzTermLength(m) match {
+//          case x if x > i._1 => (x, m)
+//          case _ => i
+//        }
+//      )._2
+//  }
+//
+//  @tailrec def getCollatzTermLength(number: BigInt, total: Int = 1) : Int = {
+//    if(_computedValues.contains(number)){
+//        _computedValues.put(number, (total - 1 + _computedValues(number)))
+//        return total - 1 + _computedValues(number)
+//    }
+//    number match {
+//      case x if x == 1 => total
+//      case x if x % 2 == 0 => getCollatzTermLength(x/2, total + 1)
+//      case x => getCollatzTermLength(x * 3 + 1, total + 1)
+//    }
+//  }
+//}
+
+module Problem14 =
+    let getLongestCollatzSequenceUnderNumber number = 
+        //[number..1] |> 
+        5
+    
+    let rec getCollatzTermLength number total =
+        match number with 
+        | i when i = 1 -> total
+        | i when i % 2 = 0 -> getCollatzTermLength (i/2) (total + 1)
+        | i -> getCollatzTermLength (i * 3 + 1) (total + 1)
+
+
+//Double-base palindromes
+//Problem 36
+//The decimal number, 585 = 10010010012 (binary), is palindromic in both bases.
+//Find the sum of all numbers, less than one million, which are palindromic in base 10 and base 2.
+//(Please note that the palindromic number, in either base, may not include leading zeros.)
+module Problem36 =
+    let isDoubleBasedPalindrome number =
+        let isPalindrome(text:string) = 
+            (text.ToCharArray() |> Array.rev |> System.String.Concat) = text
+        (isPalindrome(number.ToString()) && isPalindrome(Convert.ToString((number:int), 2)))
+
+    let getDoubleBasePalindromesUnderNumberSum number = 
+        [1..number] |> Seq.filter isDoubleBasedPalindrome |> Seq.sum
+        

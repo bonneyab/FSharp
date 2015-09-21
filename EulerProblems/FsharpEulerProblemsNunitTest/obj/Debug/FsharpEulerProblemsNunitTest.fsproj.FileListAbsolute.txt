@@ -20,7 +20,6 @@ C:\Users\adambo\Documents\FSharpEulerProblems\FsharpEulerProblemsNunitTest\obj\D
 C:\Users\adambo\Documents\FSharpEulerProblems\FsharpEulerProblemsNunitTest\obj\Debug\FsharpEulerProblemsNunitTest.pdb
 C:\Users\adambo\Documents\GitHub\Fsharp\EulerProblems\FsharpEulerProblemsNunitTest\bin\Debug\FSharpTest.XML
 C:\Users\adambo\Documents\GitHub\Fsharp\EulerProblems\FsharpEulerProblemsNunitTest\obj\Debug\FsharpEulerProblemsNunitTest.fsprojResolveAssemblyReference.cache
-C:\Users\adambo\Documents\GitHub\Fsharp\EulerProblems\FsharpEulerProblemsNunitTest\obj\Debug\FsharpEulerProblemsNunitTest.fsproj.FsharpEulerProblemsNunitTest.dll.config
 C:\Users\adambo\Documents\GitHub\Fsharp\EulerProblems\FsharpEulerProblemsNunitTest\obj\Debug\FsharpEulerProblemsNunitTest.dll
 C:\Users\adambo\Documents\GitHub\Fsharp\EulerProblems\FsharpEulerProblemsNunitTest\obj\Debug\FsharpEulerProblemsNunitTest.pdb
 C:\Users\adambo\Documents\GitHub\Fsharp\EulerProblems\FsharpEulerProblemsNunitTest\bin\Debug\FsharpEulerProblemsNunitTest.dll.config
