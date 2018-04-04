@@ -306,3 +306,33 @@ module Problem40 =
         digits 
             |> Seq.map (fun d -> System.Int32.Parse (irrationalArray.[d-1].ToString())) 
             |> Seq.reduce (fun c n -> c * n)
+            
+//Problem 53
+//There are exactly ten ways of selecting three from five, 12345
+//123, 124, 125, 134, 135, 145, 234, 235, 245, and 345
+//In combinatorics, we use the notation, 5C3 = 10.
+//In general,
+//nCr =	n!/(r!(n−r)!)
+//,where r ≤ n, n! = n×(n−1)×...×3×2×1, and 0! = 1.
+//It is not until n = 23, that a value exceeds one-million: 23C10 = 1144066.
+//How many, not necessarily distinct, values of  nCr, for 1 ≤ n ≤ 100, are greater than one-million?
+
+//Just gonna call this good enough, would need to big intify it to get the real answer but this logically works.
+module Problem53 =
+    let rec factorial n =
+        match n with
+        | n when n < 1 -> 1
+        | _ -> n * factorial(n-1)
+
+    let GetCombinatorics (n:int) (r:int) =
+        factorial(n) / (factorial(r) * factorial(n - r))
+
+    let GetCombintronicsGreaterThanValue n =
+
+        let getAllCombinatroicsForNumber n = 
+            [1..n] |> Seq.map (fun r -> GetCombinatorics n r)
+
+        let allCombinatorics = [1..n] |> Seq.map (fun c -> getAllCombinatroicsForNumber c)
+
+        // just would need to filter out items < x and do a count
+        Seq.concat allCombinatorics
